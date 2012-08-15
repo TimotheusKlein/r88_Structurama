@@ -1,36 +1,69 @@
-	<p>r88_Structurama<br />
-===========<br />
-1.Starten: <br />
-Das Programm verwendet die Python-Module dbf und sqlite3, außerdem einen selbstgestrickten wrapper für sqlite3. Die Ergebnisse werden bisher nur in eine sqlite-DB geschrieben.<br />
-Beispieldateien:<br />
+	<p>r88_Structurama &#8211; English version below –</p>
+
+	<p>1.Starten: <br />
+Das Programm verwendet die Python-Module dbf und sqlite3, außerdem einen selbstgestrickten wrapper für sqlite3 (sqlctrl.py, im repository „timtools“). Die Ergebnisse werden in eine sqlite-DB geschrieben.<br />
+Beispieldateien (im Repository „r88_Structurama-sample-files“):<br />
 a.Shape-Datei mit der dazu gehörenden DBF, auf die das Programm zugreift.<br />
-b.Einstellungen zur Erzeugung einer synthetischen Bevölkerung Attributen, wie sie üblicherweise in der Verkehrsplanung von Interesse sind.</p>
-
-	<p>2.Nach dem Starten am besten erstmal: <br />
-Datei > Einstellungen öffnen (werden nach 1x OK sichtbar)<br />
-Datei > DBF wählen<br />
-Datei > Ergebnis-Datenbank wählen (gewählte Datei wird überschrieben. Man kann auch unter Dateiname einfach was reinschreiben. Beachten, das sqlite evtl. nicht auf alle Ordner zugreifen darf, also evtl. irgendeinen neuen Ordner anlegen).<br />
-Datei > Einstellungen speichern (dann werden die Einstellungen mit den Pfad- und Dateiangaben aktualisiert. Außerdem werden die Angaben im Protokollfenster aufgeräumt.</p>
-
-	<p>3.Rechnen > Protokollfenster: Da kann man verfolgen, wie die *.set – Datei mit den Einstellungen entsteht.</p>
-
-	<p>4.Rechnen > Start: Synthetische Bevölkerung wird aufgebaut.</p>
-
-	<p>5.Zu den Tabs: <br />
-„General Settings“: Bis zu der angegeben Anzahl Personen, die irgendwelche Merkmale verpasst kriegen, werden die Merkmale interpoliert (stetige, z.B. Alter) oder gezielt so zugewiesen, dass sich die Schnittmenge angestrebter und erreichter Verteilung bzw. das „Koinzidenzverhältnis“ der betr. Personengruppe mit jeder neuen Merkmalszuweisung verbessert (bei diskreten). Bei der Bildung von Gruppen (z.B. Haushalten..) kann man eine Gruppe – z.B. „Sonstige“ – mit einem Anteil von 0% vorsehen ( = default Einstellung), dieser werden dann die am Ende der Gruppenbildung nicht mehr vermittelbaren Personen zugeordnet. Andernfalls werden die nicht vermittelbaren am Ende der Gruppenbildung gelöscht und die Bevölkerungszahl durch Kopieren entsprechend großer oder kleiner Gruppen ausgeglichen.<br />
-„Zone-specific Settings“: Hier stehen die Attribute der DBF-Datei zur Auswahl. Wenn eins ausgewählt ist, schaut das Programm vor Synthese der Bevölkerung einer Zone nach, ob in der betreffenden Spalte eine *.set – Datei angegeben ist, und lädt die darin vorgenommenen Einstellungen.</p>
-
-	<p>6.Abhängigkeit 1./2. Ordnung: 1. O. sind die Attribute, die unmittelbar den im DBF angegeben Personen zugewiesen werden, z.B. Altersgruppen. Eine genaue Altersangabe kann dann unter 2. Ordnung für die einzelnen Altersgruppen ausgewürfelt werden.</p>
-
-	<p>7.Abhängigkeit 3. Ordnung: Im oberen Teil werden die Gruppen mit ihrem Anteil beschrieben – z.B. Familie mit zwei Erw. und drei Kindern. Dann kann man unten anfangen, die Familie aus einzelnen Einheiten zusammenzubauen, ausgehend von z.B. einer Person (1. Zeile), und weitere Personen durch relative (oder wie auch immer geartete) Eigenschaften zu vorher definierten Personen definieren: Also z.B. eine maximale Altersdifferenz, anderes Geschlecht usw. Eine Einheit kann auch aus mehreren Personen bestehen.</p>
-
-	<p>8.Abhängigkeit 4. Ordnung: Hier werden den Gruppen Attribute zugewiesen.</p>
-
-	<p>9.Wenn keine „Base“ für ein Attribut ausgewählt ist, wird in der Datenbank für das betreffende Attribut auch keine Spalte erzeugt. Wenn man alle Attribute löscht (auswählen und – Button), kommt die Datenverwaltung des Programm leider noch etwas durcheinander. Besser vermeiden.</p>
-
-	<p>10.Die Synthese beginnt mit „Synthesize“-„Start“. Nach einer Weile ist es dann fertig, und in der Datenbank steht für jede Zeile der DBF eine Tabelle (Zone_0, … ) sowie eine Tabelle „Intersection“, in der die Schnittmenge bzw. „Koinzidenzverhältnisse“ für die diskret verteilten Attribute in den einzelnen Zonen ausgegeben werden.</p>
-
-	<p>11.Ich finde es ganz interessant, nach „GID“ (Gruppen – ID) zu sortieren, da kann man sich dann überlegen, ob man solche Leute kennt. Die in solchen Haushalten wohnen.</p>
+b.Einstellungen zur Erzeugung einer synthetischen Bevölkerung Attributen, wie sie üblicherweise in der Verkehrsplanung von Interesse sind.<br />
+2.Nach dem Starten am besten erstmal: <br />
+File > Open Settings, z.B. „Bundesdurchschnitt.set“ aus dem Repository „r88_Structurama-sample-files“ (werden nach 1x OK sichtbar). Die Einstellungen können im Protokollfenster überprüft werden (Info > Protocol Window).<br />
+In den geladenen Settings sind auch Dateiverweise definiert. Diese müssen korrigiert werden:<br />
+a.File > Select DBF<br />
+b.File > Select Results Database (gewählte Datei wird überschrieben. Beachten, das sqlite evtl. nicht auf alle Ordner zugreifen darf, also evtl. irgendeinen neuen Ordner anlegen).<br />
+c.File > Save Settings (dann werden die Einstellungen mit den Pfad- und Dateiangaben aktualisiert. Außerdem werden die Angaben im Protokollfenster aufgeräumt.<br />
+3.Info > Protocol Window: Hier kann man verfolgen, wie die *.set – Datei mit den Einstellungen entsteht.<br />
+4.Synthesize > Start: Synthetische Bevölkerung wird aufgebaut.<br />
+5.Zu den Tabs:<br />
+a.„General Settings“:<br />
+Bis zu der angegeben Anzahl Personen, die irgendwelche Merkmale verpasst kriegen, werden die Merkmale interpoliert (stetige, z.B. Alter) oder gezielt so zugewiesen, dass sich die Schnittmenge angestrebter und erreichter Verteilung bzw. das „Koinzidenzverhältnis“ der betr. Personengruppe mit jeder neuen Merkmalszuweisung verbessert (bei diskreten). Bei der Bildung von Gruppen (z.B. Haushalten..) kann man eine Gruppe – z.B. „Sonstige“ – mit einem Anteil von 0% vorsehen ( = default Einstellung), dieser werden dann die am Ende der Gruppenbildung nicht mehr vermittelbaren Personen zugeordnet. Andernfalls werden die nicht vermittelbaren am Ende der Gruppenbildung gelöscht und die Bevölkerungszahl durch Kopieren entsprechend großer oder kleiner Gruppen ausgeglichen.<br />
+Bei den „Zone-specific Settings“ stehen die Attribute der DBF-Datei zur Auswahl. Wenn eins ausgewählt ist, schaut das Programm vor Synthese der Bevölkerung einer Zone nach, ob in der betreffenden Spalte eine *.set – Datei angegeben ist, und lädt die darin vorgenommenen Einstellungen.<br />
+b.Abhängigkeit (Dependency) 1./2. Order:<br />
+1. O. sind die Attribute, die unmittelbar den im DBF angegeben Personen zugewiesen werden, z.B. Altersgruppen. Eine genaue Altersangabe kann dann unter 2. Ordnung für die einzelnen Altersgruppen ausgewürfelt werden.<br />
+c.Abhängigkeit 3. Order: <br />
+Im oberen Teil werden die Gruppen mit ihrem Anteil beschrieben – z.B. Familie mit zwei Erw. und drei Kindern. Dann kann man unten anfangen, die Familie aus einzelnen Einheiten zusammenzubauen, ausgehend von z.B. einer Person (1. Zeile), und weitere Personen durch relative (oder wie auch immer geartete) Eigenschaften zu vorher definierten Personen definieren: Also z.B. eine maximale Altersdifferenz, anderes Geschlecht usw. Eine Einheit kann auch aus mehreren Personen bestehen.<br />
+d.Abhängigkeit 4. Order: <br />
+Hier werden den Gruppen Attribute zugewiesen.<br />
+6.Wenn keine „Base“ für ein Attribut ausgewählt ist, wird in der Datenbank für das betreffende Attribut auch keine Spalte erzeugt. Wenn man alle Attribute löscht (auswählen und – Button), kommt die Datenverwaltung des Programm leider noch etwas durcheinander. Besser vermeiden.<br />
+7.Die Synthese beginnt mit Synthesize > Start. Nach einer Weile ist es dann fertig, und in der Datenbank steht für jede Zeile der DBF eine Tabelle (Zone_0, … ) sowie eine Tabelle „Intersection“, in der die Schnittmenge bzw. „Koinzidenzverhältnisse“ für die diskret verteilten Attribute in den einzelnen Zonen ausgegeben werden.<br />
+Die Berechnungsdauer steigt mit der Zahl der Personen in einer Zone erheblich. Personenzahlen im mittleren und oberen fünfstelligen Bereich sind mit den Beispieleinstellungen kaum noch zu bewältigen. Vielleicht schreibt jemand einen passenden Wrapper für ein schnelleres Datenbankprogramm?<br />
+8.Ich finde es ganz interessant, nach „GID“ (Gruppen – ID) zu sortieren, da kann man sich dann überlegen, ob man solche Leute kennt. Die in solchen Haushalten wohnen.</p>
 
 	<p>In der Bundesdurchschnitt.set sind Einstellungen, die ich für bundesdurchschnittliche Bevölkerung aus der MiD2008 übernommen habe – das war die Idee: aus solchen Daten eine synthetische Bevölkerung und vielleicht auch mal was anderes bauen. </p>
+
+	<p>==============================================================</p>
+
+	<p>1.Start: <br />
+The program uses the python modules dbf and sqlite3, and further an ad hoc slef made wrapper for sqlite3 (sqlctrl.py, found in my repository „timtools“). Results are written into an sqlite-database. <br />
+Sample Files (in the repository „r88_Structurama-sample-files“):<br />
+a.A shapefile with the affiliated DBF the program will consider.<br />
+b.Settings for generating a synthetic population with some attributes that are usually considered relevant in transport planning.<br />
+2.After starting the program: <br />
+File > Open Settings, e.g. „Bundesdurchschnitt.set“ from the repository „r88_Structurama-sample-files“ (settings will become visible after pressing OK once). The settings may be checked in the Protocol Window (Info > Protocol Window).<br />
+The loaded settings define path and file specifications. These have to be corrected:<br />
+a.File > Select DBF<br />
+b.File > Select Results Database (selected file will be overwritten).<br />
+c.File > Save Settings (this will update the settings with the specified path- and filenames. Further, specifications in the Protocol Window will be tidied up.<br />
+3.Info > Protocol Window: is a cumulative display of the settings specified by the user.<br />
+4.Synthesize > Start: starts the synthesis.<br />
+5.On the tabs:<br />
+a.„General Settings“:<br />
+Up to the specified number of persons who’ll be given particular attributes, the attribute values will be interpolated (for continuous attributes, e.g. age) or specified in such a fashion that the intersection of the actual with the target distribution of the attribute will be maximized (for discrete).<br />
+While generating groups (e.g. households) a group may be defined with a share of 0% (default setting). This group will receive those persons, who are left over at the end of the group generation. Alternately those persons will be removed and the population count will be met by copying existing groups.<br />
+„Zone-specific Settings“ allow to select an attribute / a column from the DBF. If one is chosen, the program will look if there is a particular settings-file specified to consider for the zone at hand.<br />
+b.Dependency 1./2. Order:<br />
+1. O. are attributes that can be assigned immediately to the person counts specified in the DBF, e.g. age groups. An exact age can then be defined “depending” on the age group as an attribute of 2nd order.<br />
+c.Dependency 3. Order: <br />
+The upper part describes groups with their share and the number of units the group is made up of. A unit is a subset of the group with more or less homogenous characteristics, e.g. the kids in a family, or the mother (usually 1). This allows to build up households of several units, starting from unit #1, and moving on with more units, whose attributes may be defined relative to those of former units: e.g. a maximum age difference, a different sex etc. A unit may consist of several persons. See the sample settings for syntax.<br />
+d.Dependency 4. Order: <br />
+Here, finally, attributes may be assigned to the groups, e.g. household income<br />
+6.If no „Base“ is selected for an attribut, the program will not create a column for this attribute in the database. If all attributes are deleted (by selecting with the radiobuttons on the right and “-“ on top), the internal data handling of the program may get messed up. Rather avoid it. Yeah, I know.<br />
+7.Population synthesis starts with Synthesize > Start. After a while it´s finished, and the database will show a table for each zone and a table „Intersections“, which displays the intersection values for discrete attributes in the zones.<br />
+Performance becomes a problem with zones with person counts in the mid five digit range. I restart the computer before I do that and disconnect it to keep automatic updates from spoiling the process. Maybe someone contributes a suiting wrapper for a faster database?<br />
+8.I find it interesting to sort results by „GID“ (group ID) and ponder whether i know such households.</p>
+
+	<p>Bundesdurchschnitt.set contains settings taken from average german households as documented in the MiD2008 – and that was the basic idea: use this sparse data to make a synthetic population.</p>
+
+	<p>“This program is distributed in the hope that it will be useful […]”</p>
+
+
 
