@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
+#
+# python 2.5.4
 # 
 # MVC Part r88_structurama
 #

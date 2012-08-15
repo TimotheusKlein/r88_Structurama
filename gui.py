@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 #
+# python 2.5.4
+#
 # GUI Part r88_structurama
 #
 # (C) Timotheus Andreas Klein 2012 - Tim.Klein@gmx.de
