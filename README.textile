@@ -8,7 +8,7 @@ Das Programm wurde mit python 2.5.4. geschrieben.<br />
 Weitere Informationen im Download.</p>
 
 	<p><strong>General Information:</strong><br />
-In order to create synthetic populations, the program uses aggregate data that is provided in shape- oder dbf-files (e.g. inhabitants), combined with statistical information on the distribution of arbitrary attributes (e.g. age groups). This process uses a rather simple, more or less guided Monte-Carlo-Algorithm. The inhabitants of a synthetic population may be grouped according to their attributes to form e.g. households. Finally these groups may have further attributes assigned to them.<br />
+In order to create synthetic populations, the program uses aggregate data that is provided in shape- or dbf-files (e.g. inhabitants), combined with statistical information on the distribution of arbitrary attributes (e.g. age groups). This process uses a rather simple, more or less guided Monte-Carlo-Algorithm. The inhabitants of a synthetic population may be grouped according to their attributes to form e.g. households. Finally these groups may have further attributes assigned to them.<br />
 The program was written on python 2.5.4.<br />
 More information in the download.</p>
 
