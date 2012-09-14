@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
-#
-# python 2.5.4
 # 
 # MVC Part r88_structurama
 #
@@ -27,7 +25,6 @@
 import os
 import numpy
 import wx
-import sys
 import random
 import dbf
 import gui
@@ -744,7 +741,7 @@ class pop_cell:
             if '#' in valuestr:
                 valuestr = self.getrelcon(Gdict, valuestr, operator)
             else:
-                if type(valuestr) == 'str':
+                if type(valuestr) == str:
                     valuestr = '"' + valuestr + '"'
                 else:
                     pass
