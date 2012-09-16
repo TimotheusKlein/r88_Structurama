@@ -417,9 +417,17 @@ class Model:
             p_info['title'] += ' - 4. O.'
             self.progressupdate(p_info)
             zone_pop.fourth_order()
+            p_info['title'] = 'Count'
+            self.progressupdate(p_info)
+            zone_pop.AttCount(tname)
+            zone_pop.GrpCount(tname)
+            zone_pop.GACount(tname)
             p_info['title'] = 'Intersections'
             self.progressupdate(p_info)
             zone_pop.finalKVcheck(tname)
+            zone_pop.delGATable(tname)
+            p_info['title'] = 'Done'
+            self.progressupdate(p_info)
             self.mySettings.set_(self.myusualSettings)
             if 'Cancel' in self.p_info['title']:
                 break
@@ -445,7 +453,7 @@ class Model:
 class pop_cell:
     def __init__(self, settings, dbfinput, DB, tname):
         self.db = sqlitecontrol.sqlctrl(DB)
-        self.db.executesql('PRAGMA synchronous = OFF')
+##        self.db.executesql('PRAGMA synchronous = OFF')
         self.settings = settings
         self.settingsstr = str(settings)
         self.dbfinput = dbfinput
@@ -454,6 +462,12 @@ class pop_cell:
         datatypes = ['INTEGER']
         self.db.createtable(self.tname, self.columns, datatypes)
         self.db.createindex(self.tname, 'PID')
+        if 'Count' not in self.db.gettablenames():
+            self.db.createtable('Count', ['Zone'], ['TEXT'])
+        if self.db.countentries('Count',
+                                {'Zone':
+                                 ' = "' + tname + '"'})[0][0] == 0:
+            self.db.insertrow('Count', ['Zone'], [tname])
         random.seed()
         
     def first_order(self):
@@ -579,8 +593,6 @@ class pop_cell:
         for eachatt in self.settings[4]:
             if eachatt['disttype'] == 'discrete':
                 self.getattKV(eachatt, 'tmp_' + tname)
-        try: self.db.droptable('tmp_' + tname)
-        except: pass
         self.db.finish()
 
     def getgrpKV(self, tname):
@@ -615,7 +627,57 @@ class pop_cell:
             self.db.changeentry(self.KVCTname,
                                 colname, KV,
                                 KVdict)
+
+    def AttCount(self, tname):
+        for eachO in self.settings[1:3]:
+            for eachAtt in eachO:
+                if eachAtt['disttype'] == 'discrete':
+                    for eachOption in eachAtt['conditions'][0]:
+                        acolname = (eachAtt['name'] + '.' +
+                                    eachOption)
+                        if acolname not in self.db.getcolnames('Count'):
+                            self.db.insertcol('Count',
+                                              acolname, 'INTEGER')
+                        count = self.countAttSpec(tname,
+                                                  eachAtt['name'],
+                                                  eachOption)
+                        self.db.changeentry('Count', acolname, count,
+                                            {'Zone':
+                                             ' ="' + tname + '"'})
+
+    def countAttSpec(self, tname, attname, option):
+        WDict = {attname: ' = "' + option + '"'}
+        return self.db.countentries(tname, WDict)[0][0]
         
+    def GrpCount(self, tname):
+        for eachG in self.settings[3]:
+            gcolname = ('G.' + eachG['name']).encode('utf-8')
+            if gcolname not in self.db.getcolnames('Count'):
+                self.db.insertcol('Count', gcolname, 'INTEGER')
+            count = self.countGrpSpec(tname, eachG['name'])
+            self.db.changeentry('Count', gcolname, count,
+                                {'Zone':
+                                 ' ="' + tname + '"'})
+
+    def countGrpSpec(self, tname, GAname):
+        GATname = 'tmp_' + tname
+        WDict = {'gisbase': (' = "' + GAname + '"').encode('utf-8')}
+        return self.db.countentries(GATname, WDict)[0][0]
+        
+    def GACount(self, tname):
+        for eachGA in self.settings[4]:
+            gacolname = ('GA.' + eachGA['name']).encode('utf-8')
+            if gacolname not in self.db.getcolnames('Count'):
+                self.db.insertcol('Count', gacolname, 'INTEGER')
+            count = self.countGrpSpec(tname, eachGA['name'])
+            self.db.changeentry('Count', gacolname, count,
+                                {'Zone':
+                                 ' ="' + tname + '"'})
+
+    def delGATable(self, tname):            
+        try: self.db.droptable('tmp_' + tname)
+        except: pass
+
     def copygroups(self, pop_before, target, Gdef):
         pop_after = self.db.countentries(self.tname, {})[0][0]
         oldGtypes = []
@@ -912,6 +974,10 @@ class pop_cell:
         return newrecs
             
     def att_diskret(self, BSAdef):
+##        for eachoption in BSAdef['options']:
+##            acolname = BSAdef['colname'] + '.' + eachoption
+##            if acolname not in self.db.getcolnames('Count'):
+##                self.db.insertcol('Count', acolname, 'TEXT')
         maxsize = self.settings[0][0]['noiselimitdiskret']
         cum_cond = self.h_cumulative(BSAdef['conditions'])
         maxloops = len(cum_cond)
