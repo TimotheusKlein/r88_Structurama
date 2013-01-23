@@ -168,10 +168,10 @@ class Model:
                     for nr, eachgrp in enumerate(eachorder):
                         share = float(eachgrp['share'])
                         if total > 0:
-                            sharepc = str(round(100 * share / total, 2))
+                            sharepc = str(round(100 * share / total, 3))
                         else:
-                            sharepc = '0.00'
-                        sharepc = sharepc[0:(sharepc.index('.') + 3)] + '%'
+                            sharepc = '0.000'
+                        sharepc = sharepc[0:(sharepc.index('.') + 4)] + '%'
                         eachgrp['conditions'][0] = sharepc
 
     def selectDbf(self, dirfile):
@@ -405,7 +405,7 @@ class Model:
             p_info['title'] = tname
             self.progressupdate(p_info)
             zone_pop = pop_cell(cellsets, dbfinput, DB, tname)
-            p_info['title'] += ' - 1. O'
+            p_info['title'] += ' - 1. O.'
             self.progressupdate(p_info)
             zone_pop.first_order()
             p_info['title'] += ' - 2. O.'

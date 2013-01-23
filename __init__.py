@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 #
-# python 2.5.4
-#
 # __init__ r88_structurama
 #
 # run this file to start r88_structurama

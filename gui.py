@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 #
-# python 2.5.4
-#
 # GUI Part r88_structurama
 #
 # (C) Timotheus Andreas Klein 2012 - Tim.Klein@gmx.de
@@ -694,15 +692,15 @@ class FileDlg(wx.FileDialog):
         self.Destroy()
 
 
-class DirDlg(wx.DirDialog):
-    def __init__(self, parent, title, path):
-        wx.DirDialog.__init__(self, None, title, path)
-        if self.ShowModal() == wx.ID_OK:
-            self.OnChoice()
-
-    def OnChoice(self):
-        return self.GetPath()
-        self.Destroy()
+##class DirDlg(wx.DirDialog):
+##    def __init__(self, parent, title, path):
+##        wx.DirDialog.__init__(self, None, title, path)
+##        if self.ShowModal() == wx.ID_OK:
+##            self.OnChoice()
+##
+##    def OnChoice(self):
+##        return self.GetPath()
+##        self.Destroy()
 
 
 class ProgressView(wx.ProgressDialog):
