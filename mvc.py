@@ -122,7 +122,11 @@ class Model:
         baseoptions = []
         baseoptions.extend(self.getDbfCols())
         for order, eachorder in enumerate(self.settings):
-            if order == 1:
+            if order == 0:
+                for eachgnrl in eachorder:
+                    eachgnrl['baseoptions'] = list(baseoptions)
+                    eachgnrl['baseoptions'].insert(0, '')
+            elif order == 1:
                 for eachatt in eachorder:
                     eachatt['baseoptions'] = list(baseoptions)
             elif order == 2:
